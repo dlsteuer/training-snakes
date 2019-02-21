@@ -1,0 +1,4 @@
+domain: battlesnake.io
+image:
+  repository: gcr.io/battlesnake-io/training-snakes
+  tag: TAG # Must be set at deploy time.

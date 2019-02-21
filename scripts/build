@@ -1,0 +1,1 @@
+docker build -t gcr.io/battlesnake-io/training-snakes . && docker push gcr.io/battlesnake-io/training-snakes
