@@ -1,5 +1,5 @@
 
-class ChaiseTail(object):
+class ChaseTail(object):
 
     def chase_tail(self, gs):
         allow_length_1 = gs.turn >= 5

@@ -1,11 +1,9 @@
-from base_distances import BaseDistances
-from utils.vector import directions
+from app.logic.base_distances import BaseDistances
 
 
 class PathDistances(BaseDistances):
-
     def closest_to(self, start, goals, gamestate):
-        paths = gamestate.best_paths_to(start, goals)
+        paths = gamestate.best_paths_to(start, goals, allow_length_1=True)
         if len(paths) == 0:
             return
 
@@ -13,7 +11,7 @@ class PathDistances(BaseDistances):
         return closest_goal
 
     def directions_to(self, goal, gamestate):
-        paths = gamestate.best_paths_to(gamestate.me.head, [goal])
+        paths = gamestate.best_paths_to(gamestate.me.head, [goal], allow_length_1=True)
         if len(paths) == 0:
             return
 

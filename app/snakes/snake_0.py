@@ -1,8 +1,9 @@
-from utils.vector import Vector, up, down, left, right, noop
-from base_snake import BaseSnake
+from app.utils.vector import Vector, up, down, left, right, noop
+from app.snakes.base_snake import BaseSnake
 
 
 class Snake0(BaseSnake):
+    DIFFICULTY = 0
 
     def move(self, gamestate):
 
@@ -12,16 +13,11 @@ class Snake0(BaseSnake):
 
         head = gamestate.me.head
         l_wall = Vector(0, head.y)
-        r_wall = Vector(gamestate.board_width-1, head.y)
+        r_wall = Vector(gamestate.board_width - 1, head.y)
         t_wall = Vector(head.x, 0)
-        b_wall = Vector(head.x, gamestate.board_width-1)
+        b_wall = Vector(head.x, gamestate.board_width - 1)
         farthest = head.farthest([l_wall, r_wall, t_wall, b_wall])
-        return {
-            l_wall: left,
-            r_wall: right,
-            t_wall: up,
-            b_wall: down,
-        }.get(farthest, up)
+        return farthest
 
     def name(self):
         return "Training Snake 0"
@@ -35,5 +31,5 @@ class Snake0(BaseSnake):
     def taunt(self):
         return ""
 
-    def end(self):
+    def end(self, **kwargs):
         pass

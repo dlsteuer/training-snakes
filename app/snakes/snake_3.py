@@ -1,15 +1,16 @@
-from utils.vector import up, down, left, right
-from base_snake import BaseSnake
+from app.utils.game_state import GameState
+from app.utils.vector import up, down, left, right
+from app.snakes.base_snake import BaseSnake
 
 
 class Snake3(BaseSnake):
+    DIFFICULTY = 3
 
-    def move(self, gamestate):
+    def move(self, gamestate: GameState):
         first_food = gamestate.food[0]
+        print(first_food, self._directions_to(first_food, gamestate))
         return gamestate.first_empty_direction(
-            gamestate.me.head,
-            self._directions_to(first_food, gamestate),
-            up,
+            gamestate.me.head, self._directions_to(first_food, gamestate), up
         )
 
     def _directions_to(self, goal, gamestate):
@@ -32,5 +33,5 @@ class Snake3(BaseSnake):
     def taunt(self):
         return ""
 
-    def end(self):
+    def end(self, details):
         pass

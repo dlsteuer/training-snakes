@@ -1,14 +1,14 @@
-from base_snake import BaseSnake
-from snake_4 import ScaredSnake
-from snake_5 import SimpleHungrySnake
+from app.snakes.base_snake import BaseSnake
+from app.snakes.snake_4 import ScaredSnake
+from app.snakes.snake_5 import SimpleHungrySnake
 
 
 class SimpleSometimesHungrySnake(BaseSnake):
-
+    DIFFICULTY = 6
     HUNGER_THRESHOLD = 30
 
     def move(self, gamestate):
-        if gamestate.me.health < self.THRESHOLD:
+        if gamestate.me.health < self.HUNGER_THRESHOLD:
             return ScaredSnake().move(gamestate)
         return SimpleHungrySnake().move(gamestate)
 

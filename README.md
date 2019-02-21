@@ -1,9 +1,7 @@
 # Training Snakes
 
-This is to run several snakes of varying difficulty at 
-https://battlesnake-training-snakes.herokuapp.com/snake_1
-https://battlesnake-training-snakes.herokuapp.com/snake_2
-https://battlesnake-training-snakes.herokuapp.com/snake_3
+This is to run several snakes of varying difficulty on https://play.battlesnake.io
+Search for them under the battlesnake user.
 ...
 
 ## Running it
@@ -16,11 +14,6 @@ this should provide all snakes at different paths, i.e.:
 - http://localhost:8080/snake_2
 - http://localhost:8080/snake_3
 - ...
-
-Run the game server locally:
-```
-> ./scripts/run_server
-```
 
 ## Training Snakes
 To help battlesnake attendees train and verify their snakes, we'll provide a pool of snakes with a gradient of difficulties.

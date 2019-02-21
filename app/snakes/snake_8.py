@@ -1,9 +1,9 @@
-from base_snake import BaseSnake
-from utils.vector import up, down, left, right
-from logic import BadMoves, ChaiseTail, Eat, Kill, OrthogonalDistances
+from app.snakes.base_snake import BaseSnake
+from app.utils.vector import up, down, left, right
+from app.logic import BadMoves, ChaseTail, Eat, Kill, OrthogonalDistances
 
 
-class TailChaser(BaseSnake, BadMoves, ChaiseTail, Eat, Kill, OrthogonalDistances):
+class TailChaser(BaseSnake, BadMoves, ChaseTail, Eat, Kill, OrthogonalDistances):
     DIFFICULTY = 8
 
     def move(self, gamestate):
@@ -20,6 +20,6 @@ class TailChaser(BaseSnake, BadMoves, ChaiseTail, Eat, Kill, OrthogonalDistances
         for f, taunt in options:
             desired_move = f(gamestate)
             if not self.bad_move(desired_move, gamestate):
-                return desired_move, taunt
+                return desired_move
 
         return down

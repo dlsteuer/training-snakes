@@ -1,6 +1,6 @@
 import random
-from utils.game_state import GameState
-from logic import BadMoves
+from app.utils.game_state import GameState
+from app.logic.bad_moves import BadMoves
 
 
 class BaseSnake(BadMoves):
@@ -13,7 +13,7 @@ class BaseSnake(BadMoves):
 
     def color(self):
         r = lambda: random.randint(0, 255)
-        return '#%02X%02X%02X' % (r(), r(), r())
+        return "#%02X%02X%02X" % (r(), r(), r())
 
     def name(self):
         return "snake_%d" % self.DIFFICULTY
@@ -21,7 +21,7 @@ class BaseSnake(BadMoves):
     def move(self, gamestate):
         raise NotImplemented("this should be overridden on implementations of snakes")
 
-    def end(self, details):
+    def end(self, **kwargs):
         pass
 
     def get_best_move(self, gamestate, options):
@@ -40,7 +40,7 @@ class BaseSnake(BadMoves):
                 continue
             if self.risky_move(move, gamestate):
                 continue
-            return move, name
+            return move
 
         for (f, name) in options:
             move = get_move(f, name)
@@ -49,4 +49,4 @@ class BaseSnake(BadMoves):
             return move, name
 
         f, name = options[0]
-        return get_move(f, name)
+        return get_move(f, name)[0]

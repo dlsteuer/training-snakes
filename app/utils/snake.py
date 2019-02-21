@@ -1,8 +1,7 @@
-from vector import Vector
+from .vector import Vector
 
 
 class Snake(object):
-
     def __init__(self, data):
         self.data = data
         self._coords = None
@@ -10,7 +9,7 @@ class Snake(object):
     @property
     def coords(self):
         if self._coords is None:
-            points = self.data["body"]["data"]
+            points = self.data["body"]
             self._coords = [Vector(p["x"], p["y"]) for p in points]
         return self._coords
 
@@ -24,11 +23,11 @@ class Snake(object):
 
     @property
     def tail(self):
-        return self.coords[self.length-1]
+        return self.coords[self.length - 1]
 
     @property
     def tail_neck(self):
-        return self.coords[self.length-2]
+        return self.coords[self.length - 2]
 
     @property
     def current_direction(self):
@@ -36,7 +35,7 @@ class Snake(object):
 
     @property
     def length(self):
-        return self.data["length"]
+        return len(self.data["body"])
 
     @property
     def health(self):

@@ -2,28 +2,30 @@ import math
 
 
 class Vector(object):
-
     def __init__(self, x, y):
         self.x = x
         self.y = y
         self._mag = None
 
     def direction(self):
-        return {
-            (0, -1): "up",
-            (0, 1): "down",
-            (1, 0): "right",
-            (-1, 0): "left",
-        }.get((self.x, self.y))
+        if self.y > 0:
+            return "down"
+        elif self.y < 0:
+            return "up"
+        elif self.x < 0:
+            return "left"
+        elif self.x > 0:
+            return "right"
+        return "up"
 
     @property
     def magnitude(self):
         if self._mag is None:
-            self._mag = math.sqrt(self.x*self.x + self.y*self.y)
+            self._mag = math.sqrt(self.x * self.x + self.y * self.y)
         return self._mag
 
     def neighbours(self):
-        return [self+d for d in [up, down, left, right]]
+        return [self + d for d in [up, down, left, right]]
 
     def is_neighbour(self, p):
         for n in self.neighbours():
@@ -65,16 +67,10 @@ class Vector(object):
         return "{}_{}".format(self.x, self.y)
 
     def __add__(self, other):
-        return Vector(
-            x=self.x + other.x,
-            y=self.y + other.y
-        )
+        return Vector(x=self.x + other.x, y=self.y + other.y)
 
     def __sub__(self, other):
-        return Vector(
-            x=self.x - other.x,
-            y=self.y - other.y
-        )
+        return Vector(x=self.x - other.x, y=self.y - other.y)
 
     def __eq__(self, other):
         if self.x != other.x:

@@ -1,9 +1,10 @@
 import random
-from utils.vector import up, down, left, right, noop
-from base_snake import BaseSnake
+from app.utils.vector import up, down, left, right, noop
+from app.snakes.base_snake import BaseSnake
 
 
 class ScaredSnake(BaseSnake):
+    DIFFICULTY = 4
 
     def move(self, gamestate):
         options = [up, down, left, right]
@@ -23,10 +24,10 @@ class ScaredSnake(BaseSnake):
 
     def _directions_to(self, goal, gamestate):
         distances = [
-            ((goal-gamestate.me.head-left).magnitude, left),
-            ((goal-gamestate.me.head-right).magnitude, right),
-            ((goal-gamestate.me.head-up).magnitude, up),
-            ((goal-gamestate.me.head-down).magnitude, down),
+            ((goal - gamestate.me.head - left).magnitude, left),
+            ((goal - gamestate.me.head - right).magnitude, right),
+            ((goal - gamestate.me.head - up).magnitude, up),
+            ((goal - gamestate.me.head - down).magnitude, down),
         ]
         distances.sort(key=lambda x: x[0], reverse=False)
         return [d[1] for d in distances]

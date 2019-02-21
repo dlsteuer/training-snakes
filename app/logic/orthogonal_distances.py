@@ -1,5 +1,5 @@
-from base_distances import BaseDistances
-from utils.vector import directions
+from .base_distances import BaseDistances
+from ..utils.vector import directions
 
 
 class OrthogonalDistances(BaseDistances):

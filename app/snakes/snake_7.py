@@ -1,10 +1,10 @@
 import random
-from base_snake import BaseSnake
-from snake_6 import SimpleSometimesHungrySnake
+from app.snakes.base_snake import BaseSnake
+from app.snakes.snake_6 import SimpleSometimesHungrySnake
 
 
 class AttemptKillsSnake(BaseSnake):
-
+    DIFFICULTY = 7
     HUNGER_THRESHOLD = 30
 
     def move(self, gamestate):

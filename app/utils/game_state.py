@@ -1,10 +1,9 @@
-from vector import Vector, up, down, left, right
-from snake import Snake
+from .vector import Vector, up, down, left, right
+from .snake import Snake
 import copy
 
 
 class GameState(object):
-
     def __init__(self, data):
         self.data = data
         self._empty_squares = None
@@ -19,8 +18,8 @@ class GameState(object):
     def other_heads(self):
         if self._other_heads is None:
             heads = []
-            for snake in self.data["snakes"]["data"]:
-                head = snake["body"]["data"][0]
+            for snake in self.data["board"]["snakes"]:
+                head = snake["body"][0]
                 heads.append(Vector(head["x"], head["y"]))
             self._other_heads = heads
         return self._other_heads
@@ -36,7 +35,7 @@ class GameState(object):
         next_heads = []
         for h in self.neighbouring_heads():
             for v in [up, down, left, right]:
-                next_heads.append(h+v)
+                next_heads.append(h + v)
         return next_heads
 
     def empty_squares(self):
@@ -44,8 +43,8 @@ class GameState(object):
         if self._empty_squares is not None:
             return self._empty_squares
 
-        width = self.data["width"]
-        height = self.data["height"]
+        width = self.board_width
+        height = self.board_height
         empty_squares = {}
         for x in range(0, width):
             for y in range(0, height):
@@ -122,12 +121,12 @@ class GameState(object):
         while len(to_visit) > 0:
             i += 1
             if i > 1000:
-                print "broken travel times"
+                print("broken travel times")
             (curr, turns) = to_visit.pop(0)
             for next in curr.neighbours():
                 if self.is_empty(next) and next.key not in shortest_travel_times:
-                    shortest_travel_times[next.key] = turns+1
-                    to_visit.append((next, turns+1))
+                    shortest_travel_times[next.key] = turns + 1
+                    to_visit.append((next, turns + 1))
         return shortest_travel_times
 
     def best_paths_to(self, start, goals, allow_length_1=False):
@@ -151,7 +150,7 @@ class GameState(object):
         for n in finish.neighbours():
             i += 1
             if i > 1000:
-                print "broken pathing"
+                print("broken pathing")
             if not allow_length_1 and n == start:
                 continue
             if n.key in travel_times:
@@ -169,7 +168,7 @@ class GameState(object):
         while curr != start:
             i += 1
             if i > 1000:
-                print "broken pathing 2"
+                print("broken pathing 2")
 
             choices = []
             for n in curr.neighbours():
@@ -211,7 +210,7 @@ class GameState(object):
     @property
     def all_snakes(self):
         if self._all_snakes is None:
-            self._all_snakes = [Snake(d) for d in self.data["snakes"]["data"]]
+            self._all_snakes = [Snake(d) for d in self.data["board"]["snakes"]]
         return self._all_snakes
 
     @property
@@ -222,11 +221,11 @@ class GameState(object):
 
     @property
     def board_width(self):
-        return self.data["width"]
+        return self.data["board"]["width"]
 
     @property
     def board_height(self):
-        return self.data["height"]
+        return self.data["board"]["height"]
 
     @property
     def turn(self):
@@ -235,7 +234,7 @@ class GameState(object):
     @property
     def food(self):
         if self._food is None:
-            self._food = [Vector(f["x"], f["y"]) for f in self.data["food"]["data"]]
+            self._food = [Vector(f["x"], f["y"]) for f in self.data["board"]["food"]]
         return self._food
 
     def next_gamestate(self, moves):
@@ -244,12 +243,11 @@ class GameState(object):
             p = self.me.head + direction
             next_coord = {"x": p.x, "y": p.y, "object": "point"}
             if snake_id == self.me.id:
-                next_payload["you"]["body"]["data"].insert(0, next_coord)
-                del next_payload["you"]["body"]["data"][-1]
+                next_payload["you"]["body"].insert(0, next_coord)
+                del next_payload["you"]["body"][-1]
 
-            for i in range(0, len(next_payload["snakes"]["data"])):
-                if next_payload["snakes"]["data"][i]["id"] == snake_id:
-                    next_payload["snakes"]["data"][i] = next_payload["you"]
+            for i in range(0, len(next_payload["board"]["snakes"])):
+                if next_payload["board"]["snakes"][i]["id"] == snake_id:
+                    next_payload["board"]["snakes"][i] = next_payload["you"]
                     break
         return GameState(next_payload)
-

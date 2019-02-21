@@ -1,5 +1,5 @@
-flask
-gevent==1.0.1
-greenlet==0.4.5
-gunicorn==19.2.1
+flask==1.0.2
+gevent==1.4.0
+greenlet==0.4.15
+gunicorn==19.9.0
 pprint==0.1

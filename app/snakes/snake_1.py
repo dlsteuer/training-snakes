@@ -1,15 +1,14 @@
-from utils.vector import up, down, left, right
-from snake_0 import Snake0
+from app.utils.vector import up, down, left, right
+from app.snakes.snake_0 import Snake0
 
 
 class Snake1(Snake0):
+    DIFFICULTY = 1
 
     def move(self, gamestate):
         default_move = Snake0().move(gamestate)
         v = gamestate.first_empty_direction(
-            gamestate.me.head,
-            [default_move, up, down, left, right],
-            default_move,
+            gamestate.me.head, [default_move, up, down, left, right], default_move
         )
         return v
 
@@ -25,5 +24,5 @@ class Snake1(Snake0):
     def taunt(self):
         return ""
 
-    def end(self):
+    def end(self, **kwargs):
         pass
